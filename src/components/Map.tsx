@@ -1,6 +1,32 @@
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from "react-leaflet";
 import { useState, useRef } from "react";
+import { latLng, LatLng } from "leaflet";
 import OSM from "../providers/osm-provider";
+
+const LocationHandler = () => {
+  const [currPos, setCurrPos] = useState<LatLng | null>(null);
+  const map = useMapEvents({
+    click() {
+      map.locate();
+    },
+    locationfound(e) {
+      setCurrPos(e.latlng);
+      map.flyTo(e.latlng, map.getZoom());
+    },
+  });
+
+  return currPos === null ? null : (
+    <Marker position={currPos}>
+      <Popup>You are currently here</Popup>
+    </Marker>
+  );
+};
 
 const Map = () => {
   // USTP Coordinates
@@ -127,9 +153,7 @@ const Map = () => {
         tileSize={256}
         detectRetina={true}
       />
-      <Marker position={center}>
-        <Popup>You're currently at USTP.</Popup>
-      </Marker>
+      <LocationHandler />
     </MapContainer>
   );
 };
