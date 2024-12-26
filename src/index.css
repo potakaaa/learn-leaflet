@@ -1,3 +1,11 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer utilities {
+  .leaflet-container {
+    @apply bg-transparent;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+  }
+}

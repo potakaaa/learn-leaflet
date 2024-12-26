@@ -1,22 +1,15 @@
-import {
-  MapContainer,
-  Popup,
-  TileLayer,
-  Polyline,
-  Tooltip,
-  Marker,
-  LayersControl,
-} from "react-leaflet";
-import { useState } from "react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { useState, useRef } from "react";
 import OSM from "../providers/osm-provider";
 
 const Map = () => {
   // USTP Coordinates
   const [center, setCenter] = useState({
-    lat: 124.65665999809528,
-    lng: 8.484850986252226,
+    lat: 8.484850986252226,
+    lng: 124.65665999809528,
   });
-  const zoomLevel = 13;
+  const zoomLevel = 15;
+  const mapRef = useRef();
 
   const start: [number, number] = [8.501678, 124.632554];
   const end: [number, number] = [8.484751, 124.63411];
@@ -123,12 +116,20 @@ const Map = () => {
     <MapContainer
       center={center}
       zoom={zoomLevel}
-      style={{ height: "500px", width: "100%" }}
+      style={{ height: "40vh" }}
+      className="leaflet-container"
+      zoomSnap={1}
+      zoomDelta={1}
     >
       <TileLayer
         url={OSM.maptiler.url}
         attribution={OSM.maptiler.attribution}
-      ></TileLayer>
+        tileSize={256}
+        detectRetina={true}
+      />
+      <Marker position={center}>
+        <Popup>You're currently at USTP.</Popup>
+      </Marker>
     </MapContainer>
   );
 };

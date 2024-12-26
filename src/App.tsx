@@ -1,11 +1,14 @@
-import React from "react";
 import Map from "./components/Map";
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <div className="size-full">
-      <h1>Jeepney route navigation </h1>
-      <Map />
+    <div className="border-box size-full flex items-center justify-center ">
+      <p className="w-full flex items-center justify-center text-center self-center text-xl font-bold text-gray-800">
+        ROTA
+      </p>
+      <div className="h-56">
+        <Map />
+      </div>
     </div>
   );
 };
