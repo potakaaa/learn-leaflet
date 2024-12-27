@@ -210,9 +210,6 @@ const Map = () => {
       ] as [number, number][],
     },
   ];
-  {
-    console.log(jeepneyRoutes[2].coordinates);
-  }
 
   return (
     <MapContainer
